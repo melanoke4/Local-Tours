@@ -1,25 +1,35 @@
 import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+// import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
+import { getTours } from '../api/tourData';
+import TourCard from '../components/tourCard';
 
 function Home() {
+  const [tours, setTours] = useState([]);
+
   const { user } = useAuth();
+
+  const getAllTours = () => {
+    getTours(user.uid).then(setTours);
+  };
+
+  useEffect(() => {
+    getAllTours();
+  });
+
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+    <div className="text-center my-4">
+      <Link href="/tour/new" passHref>
+        <Button>Add A Tour</Button>
+      </Link>
+      <div className="d-flex flex-wrap">
+        {tours.map((tour) => (
+          <TourCard key={tour.firebaseKey} tourObj={tour} onUpdate={getAllTours} />
+        ))}
+      </div>
+
     </div>
   );
 }
