@@ -7,6 +7,7 @@ import { registerUser } from '../utils/auth'; // Update with path to registerUse
 function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
     bio: '',
+    user_name: '',
     uid: user.uid,
   });
 
@@ -18,7 +19,8 @@ function RegisterForm({ user, updateUser }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
+        <Form.Label>Tour Guide</Form.Label>
+        <Form.Control as="textarea" name="user_name" required placeholder="Enter your User Name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
         <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
         <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
       </Form.Group>

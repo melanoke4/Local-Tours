@@ -1,7 +1,6 @@
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-// import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 import { getTours } from '../api/tourData';
 import TourCard from '../components/tourCard';
