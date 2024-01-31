@@ -5,7 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { createTour, updateTour } from '../../api/tourData';
+import { createTour, getTours, updateTour } from '../../api/tourData';
 
 const initialState = {
   name: '',
@@ -17,10 +17,13 @@ const initialState = {
 
 function TourForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [categories, setCategories] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
+    getTours(user.uid).then(setCategories);
+
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
 
@@ -93,6 +96,29 @@ function TourForm({ obj }) {
           onChange={handleChange}
           required
         />
+      </FloatingLabel>
+
+      <FloatingLabel controlId="floatingSelect" label="Categories">
+        <Form.Select
+          aria-label="Categories"
+          name="categories"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.categories}
+          required
+        >
+          <option value="">Select applicable Categories</option>
+          {
+            categories.map((category) => (
+              <option
+                key={category.firebaseKey}
+                value={category.firebaseKey}
+              >
+                {category.catName}
+              </option>
+            ))
+          }
+        </Form.Select>
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
