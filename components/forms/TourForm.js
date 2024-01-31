@@ -108,7 +108,7 @@ function TourForm({ obj }) {
       </FloatingLabel>
 
       {/* SUBMIT BUTTON  */}
-      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
+      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Tour</Button>
     </Form>
   );
 }

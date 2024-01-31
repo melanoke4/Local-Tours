@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { deleteTour } from '../api/tourData';
 
 function TourCard({ tourObj, onUpdate }) {
-  // FOR DELETE, WE NEED TO REMOVE THE BOOK AND HAVE THE VIEW RERENDER,
-  // SO WE PASS THE FUNCTION FROM THE PARENT THAT GETS THE BOOKS
   const deleteThisTour = () => {
     if (window.confirm(`Delete ${tourObj.name}?`)) {
       deleteTour(tourObj.firebaseKey).then(() => onUpdate());
@@ -19,11 +17,9 @@ function TourCard({ tourObj, onUpdate }) {
       <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{tourObj.name} </Card.Title>
-        {/* DYNAMIC LINK TO VIEW THE BOOK DETAILS  */}
         <p>{tourObj.location}</p>
         <p>{tourObj.price}</p>
         <p>{tourObj.description}</p>
-        {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
         <Link href={`/tour/edit/${tourObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
