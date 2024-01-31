@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
 import { getTours } from '../api/tourData';
-import TourCard from '../components/tourCard';
+import TourCard from '../components/TourCard';
 
 function Home() {
   const [tours, setTours] = useState([]);
