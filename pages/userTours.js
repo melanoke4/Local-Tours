@@ -11,7 +11,7 @@ function UserTours() {
   const { user } = useAuth();
 
   const getAllTours = () => {
-    getTours(user.uid).then(setTours);
+    getTours(user.id).then(setTours);
   };
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function UserTours() {
       </Link>
       <div className="d-flex flex-wrap">
         {tours.map((tour) => (
-          <TourCard key={tour.firebaseKey} tourObj={tour} onUpdate={getAllTours} />
+          <TourCard key={tour.id} tourObj={tour} onUpdate={getAllTours} />
         ))}
       </div>
 

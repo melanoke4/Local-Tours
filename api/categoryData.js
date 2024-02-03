@@ -2,8 +2,8 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getCategories = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/categories?orderBy="uid"&equalTo="${uid}"`, {
+const getCategories = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/categories?orderBy="id"&equalTo="${id}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,8 +14,8 @@ const getCategories = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteCategory = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/categories/${firebaseKey}`, {
+const deleteCategory = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/categories/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -26,8 +26,8 @@ const deleteCategory = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getSingleCategory = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/categories/${firebaseKey}`, {
+const getSingleCategory = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/categories/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const getSingleCategory = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const createCategory = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/categories.json`, {
+  fetch(`${endpoint}/categories`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const createCategory = (payload) => new Promise((resolve, reject) => {
 });
 
 const updateCategory = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/categories/${payload.firebaseKey}`, {
+  fetch(`${endpoint}/categories/${payload.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

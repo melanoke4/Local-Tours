@@ -8,7 +8,7 @@ import { deleteTour } from '../api/tourData';
 function TourCard({ tourObj, onUpdate }) {
   const deleteThisTour = () => {
     if (window.confirm(`Delete ${tourObj.name}?`)) {
-      deleteTour(tourObj.firebaseKey).then(() => onUpdate());
+      deleteTour(tourObj.id).then(() => onUpdate());
     }
   };
 
@@ -20,7 +20,7 @@ function TourCard({ tourObj, onUpdate }) {
         <p>{tourObj.location}</p>
         <p>{tourObj.price}</p>
         <p>{tourObj.description}</p>
-        <Link href={`/tour/edit/${tourObj.firebaseKey}`} passHref>
+        <Link href={`/tour/edit/${tourObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
         <Button variant="danger" onClick={deleteThisTour} className="m-2">
@@ -38,7 +38,7 @@ TourCard.propTypes = {
     location: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    id: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

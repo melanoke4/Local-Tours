@@ -22,7 +22,7 @@ function Home() {
       </Link>
       <div className="d-flex flex-wrap">
         {tours.map((tour) => (
-          <TourCard key={tour.firebaseKey} tourObj={tour} onUpdate={getAllTours} />
+          <TourCard key={tour.id} tourObj={tour} onUpdate={getAllTours} />
         ))}
       </div>
 
