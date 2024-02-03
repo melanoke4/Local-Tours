@@ -6,23 +6,35 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
 import { createTour, updateTour } from '../../api/tourData';
+import DropDown from '../MultiSelectDD';
+import { getCategories } from '../../api/categoryData';
+import getState from '../../api/stateData';
 
 const initialState = {
   name: '',
   image: '',
-  location: '',
+  state: '',
+  address: '',
   description: '',
   price: '',
 };
 
 function TourForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [categories, setCategories] = useState([]);
+  const [states, setStates] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
-    if (obj.firebaseKey) setFormInput(obj);
+    getCategories().then(setCategories);
+
+    if (obj.id) setFormInput(obj);
   }, [obj, user]);
+
+  useEffect(() => {
+    getState().then(setStates);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,22 +46,17 @@ function TourForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.firebaseKey) {
+    if (obj.id) {
       updateTour(formInput).then(() => router.push('/'));
     } else {
-      const payload = { ...formInput, uid: user.uid };
-      createTour(payload).then(({ name }) => {
-        const patchPayload = { firebaseKey: name };
-        updateTour(patchPayload).then(() => {
-          router.push('/');
-        });
-      });
+      const payload = { ...formInput, user: user.id };
+      createTour(payload).then(() => router.push('/'));
     }
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Add a'} Tour</h2>
+      <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Add a'} Tour</h2>
 
       <FloatingLabel controlId="floatingInput1" label="Your Name" className="mb-3">
         <Form.Control
@@ -62,12 +69,35 @@ function TourForm({ obj }) {
         />
       </FloatingLabel>
 
-      <FloatingLabel controlId="floatingInput1" label="Tour Location" className="mb-3">
+      <FloatingLabel controlId="floatingSelect" label="State">
+        <Form.Select
+          aria-label="State"
+          name="state"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.state}
+          // required
+        >
+          <option value="">Select applicable states</option>
+          {
+            states.map((state) => (
+              <option
+                key={state.id}
+                value={state.id}
+              >
+                {state.name}
+              </option>
+            ))
+          }
+        </Form.Select>
+      </FloatingLabel>
+
+      <FloatingLabel controlId="floatingInput1" label="Tour Address" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Location"
-          name="location"
-          value={formInput.location}
+          placeholder="Address"
+          name="address"
+          value={formInput.address}
           onChange={handleChange}
           required
         />
@@ -95,6 +125,29 @@ function TourForm({ obj }) {
         />
       </FloatingLabel>
 
+      <FloatingLabel controlId="floatingSelect" label="Categories">
+        <Form.Select
+          aria-label="Categories"
+          name="categories"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.categories}
+          // required
+        >
+          <option value="">Select applicable Categories</option>
+          {
+            categories.map((category) => (
+              <option
+                key={category.id}
+                value={category.id}
+              >
+                {category.catName}
+              </option>
+            ))
+          }
+        </Form.Select>
+      </FloatingLabel>
+
       {/* IMAGE INPUT  */}
       <FloatingLabel controlId="floatingInput2" label="Tour Images" className="mb-3">
         <Form.Control
@@ -107,8 +160,10 @@ function TourForm({ obj }) {
         />
       </FloatingLabel>
 
+      <DropDown />
+
       {/* SUBMIT BUTTON  */}
-      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Member</Button>
+      <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
     </Form>
   );
 }
@@ -117,10 +172,11 @@ TourForm.propTypes = {
   obj: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
-    location: PropTypes.string,
+    address: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    id: PropTypes.string,
+    state: PropTypes.string,
   }),
 };
 

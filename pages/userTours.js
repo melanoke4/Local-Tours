@@ -1,14 +1,17 @@
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getTours } from '../api/tourData';
+import { useAuth } from '../utils/context/authContext';
+import { getTourById } from '../api/tourData';
 import TourCard from '../components/tourCard';
 
-function Home() {
+function UserTours() {
   const [tours, setTours] = useState([]);
 
+  const { user } = useAuth();
+
   const getAllTours = () => {
-    getTours().then(setTours);
+    getTourById(user.id).then(setTours);
   };
 
   useEffect(() => {
@@ -30,4 +33,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default UserTours;

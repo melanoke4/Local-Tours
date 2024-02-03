@@ -4,11 +4,13 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { deleteTour } from '../api/tourData';
+import { useAuth } from '../utils/context/authContext';
 
 function TourCard({ tourObj, onUpdate }) {
+  const { user } = useAuth();
   const deleteThisTour = () => {
     if (window.confirm(`Delete ${tourObj.name}?`)) {
-      deleteTour(tourObj.firebaseKey).then(() => onUpdate());
+      deleteTour(tourObj.id).then(() => onUpdate());
     }
   };
 
@@ -20,12 +22,19 @@ function TourCard({ tourObj, onUpdate }) {
         <p>{tourObj.location}</p>
         <p>{tourObj.price}</p>
         <p>{tourObj.description}</p>
-        <Link href={`/tour/edit/${tourObj.firebaseKey}`} passHref>
-          <Button variant="info">EDIT</Button>
-        </Link>
-        <Button variant="danger" onClick={deleteThisTour} className="m-2">
-          DELETE
-        </Button>
+        { user.id === tourObj.user.id ? (
+          <>
+            <Link href={`/tour/edit/${tourObj.id}`} passHref>
+              <Button variant="info">EDIT</Button>
+            </Link>
+            <Link href={`/tour/${tourObj.id}`} passHref>
+              <Button variant="primary" className="m-2">VIEW</Button>
+            </Link>
+            <Button variant="danger" onClick={deleteThisTour} className="m-2">
+              DELETE
+            </Button>
+          </>
+        ) : ''}
       </Card.Body>
     </Card>
   );
@@ -38,7 +47,13 @@ TourCard.propTypes = {
     location: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    id: PropTypes.string,
+    user: PropTypes.shape({
+      id: PropTypes.string,
+      uid: PropTypes.string,
+      bio: PropTypes.string,
+      username: PropTypes.string,
+    }),
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

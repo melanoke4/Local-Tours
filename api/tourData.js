@@ -2,8 +2,8 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getTours = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/tours?orderBy="uid"&equalTo="${uid}"`, {
+const getTours = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tours`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,20 +14,31 @@ const getTours = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteTour = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/tours/${firebaseKey}`, {
-    method: 'DELETE',
+const getTourById = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tours?userId=${id}`, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
+const deleteTour = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tours/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
     .then((data) => resolve((data)))
     .catch(reject);
 });
 
-const getSingleTour = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/tours/${firebaseKey}`, {
+const getSingleTour = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tours/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +50,7 @@ const getSingleTour = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 const createTour = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/tours.json`, {
+  fetch(`${endpoint}/tours`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -52,7 +63,7 @@ const createTour = (payload) => new Promise((resolve, reject) => {
 });
 
 const updateTour = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/tours/${payload.firebaseKey}`, {
+  fetch(`${endpoint}/tours/${payload.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -66,6 +77,7 @@ const updateTour = (payload) => new Promise((resolve, reject) => {
 
 export {
   getTours,
+  getTourById,
   createTour,
   deleteTour,
   getSingleTour,
