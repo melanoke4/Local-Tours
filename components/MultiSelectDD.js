@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FloatingLabel } from 'react-bootstrap';
 import { getCategories } from '../api/categoryData';
+import DropDownSelectedContext from '../utils/context/dropdownSelectedContext';
+import { removeCategoryFromTour } from '../api/tourCategoryData';
 
 const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   <div className="c-multi-select-dropdown">
@@ -29,6 +31,11 @@ const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
 const DropDown = () => {
   const [selected, setSelected] = useState([]);
   const [categories, setCategories] = useState([]);
+  const {setSelectedCategories} = useContext(DropDownSelectedContext)
+
+  useEffect(() => {
+    setSelectedCategories(selected)
+  }, [selected])
 
   const toggleOption = ({ id }) => {
     setSelected((prevSelected) => {
@@ -36,7 +43,9 @@ const DropDown = () => {
       const newArray = [...prevSelected];
       if (newArray.includes(id)) {
         console.warn('this is working');
-        return newArray.filter((item) => item !== id);
+        removeCategoryFromTour().catch.then(() => {
+          return newArray.filter((item) => item !== id);
+        })
         // else, add
       }
       newArray.push(id);

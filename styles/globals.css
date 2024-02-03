@@ -20,3 +20,11 @@ a {
 body {
   background-color: #88effd;
 }
+
+.tour-categories {
+  display: flex;
+}
+
+.tour-categories * {
+  margin: .5rem;
+}

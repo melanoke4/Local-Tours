@@ -20,7 +20,7 @@ function RegisterForm({ user, setUser }) {
       updateUser({ ...formData, id: user.id }).then(setUser)
         .then(router.push('/profile'));
     }
-    registerUser(formData).then(router.push('/profile'));
+    registerUser(formData).then(router.push('/profile')).then(router.reload());
   };
 
   return (
