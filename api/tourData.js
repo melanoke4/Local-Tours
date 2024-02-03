@@ -14,6 +14,18 @@ const getTours = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getTourById = (id) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tours?userId=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(Object.values(data)))
+    .catch(reject);
+});
+
 const deleteTour = (id) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/tours/${id}`, {
     method: 'DELETE',
@@ -65,6 +77,7 @@ const updateTour = (payload) => new Promise((resolve, reject) => {
 
 export {
   getTours,
+  getTourById,
   createTour,
   deleteTour,
   getSingleTour,

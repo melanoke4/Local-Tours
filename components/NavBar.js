@@ -26,6 +26,9 @@ export default function NavBar() {
             <Link passHref href="/tour/new">
               <Nav.Link>New Tour</Nav.Link>
             </Link>
+            <Link passHref href="/userTours">
+              <Nav.Link>My Tours</Nav.Link>
+            </Link>
             <Link passHref href="/profile">
               <Nav.Link>My Page</Nav.Link>
             </Link>
