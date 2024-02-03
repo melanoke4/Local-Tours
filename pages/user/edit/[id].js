@@ -3,9 +3,9 @@ import RegisterForm from '../../../components/RegisterForm';
 import { useAuth } from '../../../utils/context/authContext';
 
 export default function UserEdit() {
-  const { user, updateUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   return (
-    <RegisterForm user={user} updateUser={updateUser} />
+    <RegisterForm user={user} setUser={setUser} />
   );
 }

@@ -13,9 +13,9 @@ export default function UserBio() {
       {/* <Card.Img variant="top" src={user.image} alt={user.username} style={{ height: '400px' }} /> */}
       <Card.Body>
         <Card.Title>{user.username} </Card.Title>
-        <h3>{user.bio}</h3>
+        <p>{user.bio}</p>
         <Link href={`/user/edit/${user.id}`} passHref>
-          <Button variant="info">EDIT bio</Button>
+          <Button variant="info" class="btn btn-secondary">edit bio</Button>
         </Link>
 
       </Card.Body>
@@ -25,7 +25,6 @@ export default function UserBio() {
 
 UserBio.propTypes = {
   user: PropTypes.shape({
-    username: PropTypes.string,
-    bio: PropTypes.string,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
