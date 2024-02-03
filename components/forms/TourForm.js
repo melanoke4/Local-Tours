@@ -8,11 +8,13 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTour, updateTour } from '../../api/tourData';
 import DropDown from '../MultiSelectDD';
 import { getCategories } from '../../api/categoryData';
+import getState from '../../api/stateData';
 
 const initialState = {
   name: '',
   image: '',
-  location: '',
+  state: '',
+  address: '',
   description: '',
   price: '',
 };
@@ -20,6 +22,7 @@ const initialState = {
 function TourForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
+  const [states, setStates] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
 
@@ -28,6 +31,10 @@ function TourForm({ obj }) {
 
     if (obj.id) setFormInput(obj);
   }, [obj, user]);
+
+  useEffect(() => {
+    getState().then(setStates);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +49,7 @@ function TourForm({ obj }) {
     if (obj.id) {
       updateTour(formInput).then(() => router.push('/'));
     } else {
-      const payload = { ...formInput, id: user.id };
+      const payload = { ...formInput, user: user.id };
       createTour(payload).then(() => router.push('/'));
     }
   };
@@ -62,12 +69,35 @@ function TourForm({ obj }) {
         />
       </FloatingLabel>
 
-      <FloatingLabel controlId="floatingInput1" label="Tour Location" className="mb-3">
+      <FloatingLabel controlId="floatingSelect" label="State">
+        <Form.Select
+          aria-label="State"
+          name="state"
+          onChange={handleChange}
+          className="mb-3"
+          value={formInput.state}
+          // required
+        >
+          <option value="">Select applicable states</option>
+          {
+            states.map((state) => (
+              <option
+                key={state.id}
+                value={state.id}
+              >
+                {state.name}
+              </option>
+            ))
+          }
+        </Form.Select>
+      </FloatingLabel>
+
+      <FloatingLabel controlId="floatingInput1" label="Tour Address" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Location"
-          name="location"
-          value={formInput.location}
+          placeholder="Address"
+          name="address"
+          value={formInput.address}
           onChange={handleChange}
           required
         />
@@ -142,10 +172,11 @@ TourForm.propTypes = {
   obj: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
-    location: PropTypes.string,
+    address: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
     id: PropTypes.string,
+    state: PropTypes.string,
   }),
 };
 
