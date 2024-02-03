@@ -9,6 +9,8 @@ import { createTour, updateTour } from '../../api/tourData';
 import DropDown from '../MultiSelectDD';
 import { getCategories } from '../../api/categoryData';
 import getState from '../../api/stateData';
+import DropDownSelectedContext from '../../utils/context/dropdownSelectedContext';
+import { addCategoryToTour } from '../../api/tourCategoryData';
 
 const initialState = {
   name: '',
@@ -22,6 +24,7 @@ const initialState = {
 function TourForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([])
   const [states, setStates] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
@@ -47,14 +50,23 @@ function TourForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
+      selectedCategories.forEach(async (categoryId) => {
+        await addCategoryToTour(obj.id, categoryId)
+      })
       updateTour(formInput).then(() => router.push('/'));
     } else {
       const payload = { ...formInput, user: user.id };
-      createTour(payload).then(() => router.push('/'));
+      createTour(payload).then((response) => {
+        selectedCategories.forEach(async (categoryId) => {
+          await addCategoryToTour(response.id, categoryId)
+        })
+      }).then(() => router.push('/'));
     }
   };
 
   return (
+    <>
+    <DropDownSelectedContext.Provider value={{selectedCategories, setSelectedCategories}}>
     <Form onSubmit={handleSubmit}>
       <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Add a'} Tour</h2>
 
@@ -165,6 +177,8 @@ function TourForm({ obj }) {
       {/* SUBMIT BUTTON  */}
       <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
     </Form>
+    </DropDownSelectedContext.Provider>
+    </>
   );
 }
 

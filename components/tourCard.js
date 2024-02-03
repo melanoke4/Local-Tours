@@ -22,6 +22,12 @@ function TourCard({ tourObj, onUpdate }) {
         <p>{tourObj.location}</p>
         <p>{tourObj.price}</p>
         <p>{tourObj.description}</p>
+        <div className='tour-categories'>
+          {tourObj.categories &&
+          tourObj.categories.map((category) => {
+            return <p><em>{category.name}</em></p>
+          })}
+          </div>
         { user.id === tourObj.user.id ? (
           <>
             <Link href={`/tour/edit/${tourObj.id}`} passHref>
