@@ -8,15 +8,15 @@ function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
     bio: '',
     username: '',
-    id: user.id,
+    uid: user.uid,
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.id) {
-      updateUser(user.id);
+    if (user.uid) {
+      updateUser(user.uid);
     }
-    registerUser(formData).then(() => updateUser(user.id));
+    registerUser(formData).then(() => updateUser(user.uid));
   };
 
   return (
@@ -36,7 +36,7 @@ function RegisterForm({ user, updateUser }) {
 
 RegisterForm.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
   }).isRequired,
   updateUser: PropTypes.func.isRequired,
 };

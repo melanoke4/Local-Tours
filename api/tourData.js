@@ -2,8 +2,8 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getTours = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/tours?orderBy="id"&equalTo="${id}"`, {
+const getTours = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/tours`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +21,6 @@ const deleteTour = (id) => new Promise((resolve, reject) => {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
     .then((data) => resolve((data)))
     .catch(reject);
 });

@@ -13,7 +13,7 @@ function Home() {
 
   useEffect(() => {
     getAllTours();
-  });
+  }, []);
 
   return (
     <div className="text-center my-4">
