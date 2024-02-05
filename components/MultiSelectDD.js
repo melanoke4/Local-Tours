@@ -28,7 +28,7 @@ const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   </div>
 );
 
-const DropDown = () => {
+const DropDown = ({tour}) => {
   const [selected, setSelected] = useState([]);
   const [categories, setCategories] = useState([]);
   const {setSelectedCategories} = useContext(DropDownSelectedContext)
@@ -42,10 +42,14 @@ const DropDown = () => {
       // if it's in, remove
       const newArray = [...prevSelected];
       if (newArray.includes(id)) {
-        console.warn('this is working');
-        removeCategoryFromTour().catch.then(() => {
+        if (tour && tour.id) {
+          removeCategoryFromTour(tour.id, id).then(() => {
+            return newArray.filter((item) => item !== id);
+          })
+        } else {
           return newArray.filter((item) => item !== id);
-        })
+        }
+        
         // else, add
       }
       newArray.push(id);
