@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterForm from '../../../components/RegisterForm';
 import { useAuth } from '../../../utils/context/authContext';
+import RegisterForm from '../../../components/RegisterForm';
 
 export default function UserEdit() {
   const { user, setUser } = useAuth();

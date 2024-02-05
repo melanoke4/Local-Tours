@@ -33,6 +33,9 @@ function TourCard({ tourObj, onUpdate }) {
             <Link href={`/tour/edit/${tourObj.id}`} passHref>
               <Button variant="info">EDIT</Button>
             </Link>
+            <Link href={`/tour/${tourObj.id}`} passHref>
+              <Button variant="primary" className="m-2">VIEW</Button>
+            </Link>
             <Button variant="danger" onClick={deleteThisTour} className="m-2">
               DELETE
             </Button>
