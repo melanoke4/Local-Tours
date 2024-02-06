@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
-const DropDownSelectedContext = createContext()
+const DropDownSelectedContext = createContext();
 
-export default DropDownSelectedContext
+export default DropDownSelectedContext;

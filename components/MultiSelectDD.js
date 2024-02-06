@@ -28,14 +28,20 @@ const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   </div>
 );
 
-const DropDown = ({tour}) => {
+const DropDown = ({ tour, existingCategories, setEditObj }) => {
   const [selected, setSelected] = useState([]);
   const [categories, setCategories] = useState([]);
-  const {setSelectedCategories} = useContext(DropDownSelectedContext)
+  const { setSelectedCategories } = useContext(DropDownSelectedContext);
 
   useEffect(() => {
-    setSelectedCategories(selected)
-  }, [selected])
+    setSelectedCategories(selected);
+  }, [selected]);
+
+  useEffect(() => {
+    if (existingCategories.length > 0) {
+      setSelected(existingCategories);
+    }
+  }, [existingCategories]);
 
   const toggleOption = ({ id }) => {
     setSelected((prevSelected) => {
@@ -43,13 +49,15 @@ const DropDown = ({tour}) => {
       const newArray = [...prevSelected];
       if (newArray.includes(id)) {
         if (tour && tour.id) {
-          removeCategoryFromTour(tour.id, id).then(() => {
-            return newArray.filter((item) => item !== id);
-          })
+          removeCategoryFromTour(tour.id, id).then((response) => {
+            if (!typeof response === 'string') {
+              setEditObj(response);
+            }
+          }).then(() => newArray.filter((item) => item !== id));
         } else {
           return newArray.filter((item) => item !== id);
         }
-        
+
         // else, add
       }
       newArray.push(id);
