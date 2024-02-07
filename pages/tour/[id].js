@@ -21,6 +21,7 @@ export default function ViewTour() {
         <p>{tourDetails.address}</p>
         <p>{tourDetails.price}</p>
         <p>{tourDetails.description}</p>
+        <p>{tourDetails.state?.name}</p>
 
         {/* <Button variant="info">EDIT</Button> */}
       </Card.Body>
