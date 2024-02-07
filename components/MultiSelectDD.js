@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FloatingLabel } from 'react-bootstrap';
 import { getCategories } from '../api/categoryData';
-import { removeCategoryFromTour } from '../api/tourCategoryData';
 import DropDownSelectedContext from '../utils/context/dropdownSelectedContext';
 
 const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
