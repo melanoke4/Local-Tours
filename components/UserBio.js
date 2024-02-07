@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
@@ -15,16 +14,10 @@ export default function UserBio() {
         <Card.Title>{user.username} </Card.Title>
         <p>{user.bio}</p>
         <Link href={`/user/edit/${user.id}`} passHref>
-          <Button variant="info" class="btn btn-secondary">edit bio</Button>
+          <Button variant="info" className="btn btn-secondary">edit bio</Button>
         </Link>
 
       </Card.Body>
     </Card>
   );
 }
-
-UserBio.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired,
-};

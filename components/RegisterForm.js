@@ -31,7 +31,7 @@ function RegisterForm({ user, setUser }) {
         <Form.Control as="textarea" name="bio" id="userBio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
         {/* <Form.Text className="text-muted">Let other travelers know a little bit about you...</Form.Text> */}
       </Form.Group>
-      <Button variant="primary" type="submit" class="btn btn-small btn-secondary">
+      <Button variant="primary" type="submit" className="btn btn-small btn-secondary">
         Submit
       </Button>
     </Form>
@@ -41,7 +41,7 @@ function RegisterForm({ user, setUser }) {
 RegisterForm.propTypes = {
   user: PropTypes.shape({
     uid: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
   setUser: PropTypes.func.isRequired,
 };
