@@ -14,7 +14,7 @@ export default function UserBio() {
         <Card.Title>{user.username} </Card.Title>
         <p>{user.bio}</p>
         <Link href={`/user/edit/${user.id}`} passHref>
-          <Button variant="info" className="btn btn-secondary">edit bio</Button>
+          <Button variant="btn-small btn-secondary" className="btn">edit bio</Button>
         </Link>
 
       </Card.Body>

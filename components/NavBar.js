@@ -32,7 +32,7 @@ export default function NavBar() {
             <Link passHref href="/profile">
               <Nav.Link>My Page</Nav.Link>
             </Link>
-            <Button variant="danger" onClick={signOut}>
+            <Button variant="light" onClick={signOut}>
               Sign Out
             </Button>
           </Nav>

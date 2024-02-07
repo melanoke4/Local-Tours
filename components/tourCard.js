@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { deleteTour } from '../api/tourData';
 import { useAuth } from '../utils/context/authContext';
 
@@ -15,26 +16,38 @@ function TourCard({ tourObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px' }}>
+    <Card style={{ width: '18rem', margin: '10px', maxHeight: '600px' }}>
       <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ height: '400px' }} />
       <Card.Body>
         <Card.Title>{tourObj.name} </Card.Title>
-        <p>{tourObj.location}</p>
-        <p>{tourObj.price}</p>
         <p>{tourObj.description}</p>
+        <ListGroup>
+          {/* <ListGroupItem>
+            {tourObj.state?.name}
+          </ListGroupItem>
+          <ListGroupItem>
+            {tourObj.address}
+          </ListGroupItem> */}
+          <ListGroupItem>
+            {tourObj.price}
+          </ListGroupItem>
+          <ListGroupItem>
+            categories
+          </ListGroupItem>
+        </ListGroup>
         <div className="tour-categories">
           {tourObj.categories
           && tourObj.categories.map((category) => <p><em>{category.name}</em></p>)}
-        </div>
+        </div><hr />
         { user.id === tourObj.user.id ? (
           <>
             <Link href={`/tour/edit/${tourObj.id}`} passHref>
-              <Button variant="info">EDIT</Button>
+              <Button variant="light">EDIT</Button>
             </Link>
             <Link href={`/tour/${tourObj.id}`} passHref>
-              <Button variant="primary" className="m-2">VIEW</Button>
+              <Button variant="light" className="m-2">VIEW</Button>
             </Link>
-            <Button variant="danger" onClick={deleteThisTour} className="m-2">
+            <Button variant="secondary" onClick={deleteThisTour} className="m-2 btn-block">
               DELETE
             </Button>
           </>
@@ -51,6 +64,7 @@ TourCard.propTypes = {
     location: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
+    categories: PropTypes.string,
     id: PropTypes.number,
     categories: PropTypes.arrayOf(
       PropTypes.shape({

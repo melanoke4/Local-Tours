@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FloatingLabel } from 'react-bootstrap';
 import { getCategories } from '../api/categoryData';
+import { removeCategoryFromTour } from '../api/tourCategoryData';
 import DropDownSelectedContext from '../utils/context/dropdownSelectedContext';
 
 const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   <div className="c-multi-select-dropdown">
     <div className="c-multi-select-dropdown__selected">
       <div>{selected.length} selected</div>
-      {/* <img src={Dropdown} /> */}
     </div>
     <ul className="c-multi-select-dropdown__options">
       {options.map((option) => {

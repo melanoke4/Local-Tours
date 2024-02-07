@@ -31,7 +31,7 @@ function RegisterForm({ user, setUser }) {
         <Form.Control as="textarea" name="bio" id="userBio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
         {/* <Form.Text className="text-muted">Let other travelers know a little bit about you...</Form.Text> */}
       </Form.Group>
-      <Button variant="primary" type="submit" className="btn btn-small btn-secondary">
+      <Button variant="secondary" type="submit" className="btn btn-small">
         Submit
       </Button>
     </Form>
