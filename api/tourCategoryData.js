@@ -14,7 +14,7 @@ const addCategoryToTour = async (tourId, categoryId) => {
 };
 const removeCategoryFromTour = async (tourId, categoryId) => {
   try {
-    const { data } = await axios.get(`${databaseUrl}/tours/${tourId}/remove_tour_category/${categoryId}`);
+    const { data } = await axios.put(`${databaseUrl}/tours/${tourId}/remove_tour_category?categoryId=${categoryId}`);
     return data;
   } catch (e) {
     console.warn(e);

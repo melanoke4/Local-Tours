@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getTours } from '../api/tourData';
 import TourCard from '../components/tourCard';
+import SearchBar from '../components/searchBar';
 
 function Home() {
   const [tours, setTours] = useState([]);
@@ -20,6 +21,7 @@ function Home() {
       <Link href="/tour/new" passHref>
         <Button>Add A Tour</Button>
       </Link>
+      <SearchBar />
       <div className="d-flex flex-wrap">
         {tours.map((tour) => (
           <TourCard key={tour.id} tourObj={tour} onUpdate={getAllTours} />

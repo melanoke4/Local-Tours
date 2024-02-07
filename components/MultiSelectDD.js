@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FloatingLabel } from 'react-bootstrap';
 import { getCategories } from '../api/categoryData';
 import DropDownSelectedContext from '../utils/context/dropdownSelectedContext';
-import { removeCategoryFromTour } from '../api/tourCategoryData';
 
 const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   <div className="c-multi-select-dropdown">
@@ -28,7 +27,7 @@ const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   </div>
 );
 
-const DropDown = ({ tour, existingCategories, setEditObj }) => {
+const DropDown = ({ existingCategories }) => {
   const [selected, setSelected] = useState([]);
   const [categories, setCategories] = useState([]);
   const { setSelectedCategories } = useContext(DropDownSelectedContext);
@@ -48,20 +47,9 @@ const DropDown = ({ tour, existingCategories, setEditObj }) => {
       // if it's in, remove
       const newArray = [...prevSelected];
       if (newArray.includes(id)) {
-        if (tour && tour.id) {
-          removeCategoryFromTour(tour.id, id).then((response) => {
-            if (!typeof response === 'string') {
-              setEditObj(response);
-            }
-          }).then(() => newArray.filter((item) => item !== id));
-        } else {
-          return newArray.filter((item) => item !== id);
-        }
-
-        // else, add
+        return newArray.filter((item) => item !== id);
       }
       newArray.push(id);
-      console.warn('select is working');
 
       return newArray;
     });
@@ -82,8 +70,24 @@ MultiSelectDropdown.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  selected: PropTypes.number.isRequired,
+  selected: PropTypes.arrayOf(
+    PropTypes.number.isRequired,
+  ),
   toggleOption: PropTypes.func.isRequired,
+};
+
+MultiSelectDropdown.defaultProps = {
+  selected: [],
+};
+
+DropDown.propTypes = {
+  existingCategories: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+};
+
+DropDown.defaultProps = {
+  existingCategories: [],
 };
 
 export default DropDown;

@@ -8,19 +8,18 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTour, updateTour } from '../../api/tourData';
 import DropDown from '../MultiSelectDD';
 import getState from '../../api/stateData';
-import { addCategoryToTour } from '../../api/tourCategoryData';
 import DropDownSelectedContext from '../../utils/context/dropdownSelectedContext';
 
 const initialState = {
   name: '',
   image: '',
-  state: '',
+  state: {},
   address: '',
   description: '',
   price: '',
 };
 
-function TourForm({ obj, setEditObj }) {
+function TourForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [states, setStates] = useState([]);
@@ -40,7 +39,6 @@ function TourForm({ obj, setEditObj }) {
     const previousCategories = [];
     if (obj.id) {
       if (obj.id) {
-        console.warn(obj, 'obj obj');
         obj.categories.forEach((category) => {
           previousCategories.push(category.id);
         });
@@ -60,17 +58,10 @@ function TourForm({ obj, setEditObj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      selectedCategories.forEach(async (categoryId) => {
-        await addCategoryToTour(obj.id, categoryId);
-      });
-      updateTour({ ...formInput }).then(() => router.push('/'));
+      updateTour({ ...formInput, tourCategories: selectedCategories }).then(() => router.push('/'));
     } else {
-      const payload = { ...formInput, user: user.id };
-      createTour(payload).then((response) => {
-        selectedCategories.forEach(async (categoryId) => {
-          await addCategoryToTour(response.id, categoryId);
-        });
-      }).then(() => router.push('/'));
+      const payload = { ...formInput, user: user.id, tourCategories: selectedCategories };
+      createTour(payload).then(() => router.push('/'));
     }
   };
 
@@ -158,7 +149,7 @@ function TourForm({ obj, setEditObj }) {
             />
           </FloatingLabel>
 
-          <DropDown tour={obj} existingCategories={existingCategories} setEditObj={setEditObj} />
+          <DropDown tour={obj} existingCategories={existingCategories} />
 
           {/* SUBMIT BUTTON  */}
           <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
@@ -175,8 +166,17 @@ TourForm.propTypes = {
     address: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
-    id: PropTypes.string,
-    state: PropTypes.string,
+    id: PropTypes.number,
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      }),
+    ),
+    state: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
   }),
 };
 
