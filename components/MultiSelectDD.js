@@ -8,7 +8,6 @@ const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   <div className="c-multi-select-dropdown">
     <div className="c-multi-select-dropdown__selected">
       <div>{selected.length} selected</div>
-      {/* <img src={Dropdown} /> */}
     </div>
     <ul className="c-multi-select-dropdown__options">
       {options.map((option) => {

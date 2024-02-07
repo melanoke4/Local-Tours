@@ -18,7 +18,7 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: #283A2C;
 }
 
 .tour-categories {
@@ -27,4 +27,61 @@ body {
 
 .tour-categories * {
   margin: .5rem;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.c-multi-select-dropdown{
+    margin:30px auto;
+    position:relative;
+    width:300px;
+
+    &:hover{
+        .c-multi-select-dropdown__options{
+            display:block;
+        }
+    }
+
+    .c-multi-select-dropdown__selected{
+        border:solid 1px #eee;
+        font-size:14px;
+        padding:10px;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #eee;
+
+        > img {
+            height:18px;
+        }
+    }
+
+    .c-multi-select-dropdown__options{
+        display:none;
+        position: absolute;
+        box-sizing: border-box;
+        left:0;
+        width:100%;
+        list-style: none;
+        padding-left:0px;
+        /* border:solid 1px #eee; */
+        padding:5px 0px;
+        background-color: #eee;
+    }
+
+    .c-multi-select-dropdown__option{
+        display:flex;
+        align-items: center;
+        padding:6px 10px;
+        cursor:pointer;
+
+        &:hover{
+            background-color: #eee;
+        }
+        
+        &-checkbox{
+            margin-right:6px;
+        }
+    }
 }

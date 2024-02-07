@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getTours } from '../api/tourData';
@@ -18,9 +18,15 @@ function Home() {
 
   return (
     <div className="text-center my-4">
-      <Link href="/tour/new" passHref>
-        <Button>Add A Tour</Button>
-      </Link>
+      <Card>
+        <Card.Img variant="top" src="" alt="homepageimg" style={{ maxHeight: '350px' }} />
+        <Card.Body>
+          <p>page intro</p>
+          <Link href="/tour/new" passHref>
+            <Button variant="btn-small btn-secondary">Add A Tour</Button>
+          </Link>
+        </Card.Body>
+      </Card>
       <SearchBar />
       <div className="d-flex flex-wrap">
         {tours.map((tour) => (

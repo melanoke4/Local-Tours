@@ -21,7 +21,7 @@ function UserTours() {
   return (
     <div className="text-center my-4">
       <Link href="/tour/new" passHref>
-        <Button>Add A Tour</Button>
+        <Button variant="btn-small btn-secondary">Add A Tour</Button>
       </Link>
       <div className="d-flex flex-wrap">
         {tours.map((tour) => (

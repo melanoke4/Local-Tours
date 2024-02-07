@@ -8,6 +8,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTour, updateTour } from '../../api/tourData';
 import DropDown from '../MultiSelectDD';
 import getState from '../../api/stateData';
+import { addCategoryToTour } from '../../api/tourCategoryData';
 import DropDownSelectedContext from '../../utils/context/dropdownSelectedContext';
 
 const initialState = {
@@ -149,7 +150,11 @@ function TourForm({ obj }) {
             />
           </FloatingLabel>
 
-          <DropDown tour={obj} existingCategories={existingCategories} />
+          <FloatingLabel>
+            <DropDown tour={obj} existingCategories={existingCategories} />
+          </FloatingLabel>
+
+          <Button variant="btn-small btn-secondary" type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
 
           {/* SUBMIT BUTTON  */}
           <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
