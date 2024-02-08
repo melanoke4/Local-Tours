@@ -7,10 +7,15 @@ import SearchBar from '../components/searchBar';
 
 function Home() {
   const [tours, setTours] = useState([]);
+  const [showingTours, setShowingTours] = useState([]);
 
   const getAllTours = () => {
     getTours().then(setTours);
   };
+
+  useEffect(() => {
+    setShowingTours(tours);
+  }, [tours]);
 
   useEffect(() => {
     getAllTours();
@@ -26,10 +31,10 @@ function Home() {
             <Button variant="btn-small btn-secondary">Add A Tour</Button>
           </Link>
         </Card.Body>
+        <SearchBar setShowingTours={setShowingTours} showingTours={showingTours} tours={tours} />
       </Card>
-      <SearchBar />
       <div className="d-flex flex-wrap">
-        {tours.map((tour) => (
+        {showingTours.map((tour) => (
           <TourCard key={tour.id} tourObj={tour} onUpdate={getAllTours} />
         ))}
       </div>

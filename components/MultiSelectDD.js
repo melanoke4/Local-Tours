@@ -7,7 +7,7 @@ import DropDownSelectedContext from '../utils/context/dropdownSelectedContext';
 const MultiSelectDropdown = ({ options, selected, toggleOption }) => (
   <div className="c-multi-select-dropdown">
     <div className="c-multi-select-dropdown__selected">
-      <div>{selected.length} selected</div>
+      <div> Select Related Categories</div>
     </div>
     <ul className="c-multi-select-dropdown__options">
       {options.map((option) => {
