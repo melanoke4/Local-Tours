@@ -26,7 +26,11 @@ export default function ViewTour() {
             <ListGroupItem> {tourDetails?.state?.name} </ListGroupItem>
             <ListGroupItem> {tourDetails?.address} </ListGroupItem>
             <ListGroupItem> ${tourDetails?.price} </ListGroupItem>
-            <ListGroupItem> categories </ListGroupItem>
+            <ListGroupItem> categories: {tourDetails?.categories?.map((category) => (
+              <p>{category.name}
+              </p>
+            ))}
+            </ListGroupItem>
           </ListGroup>
         </Card.Body>
       </Card>
