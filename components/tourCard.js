@@ -16,29 +16,29 @@ function TourCard({ tourObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px', maxHeight: '600px' }}>
-      <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ height: '400px' }} />
+    <Card style={{ width: '18rem', margin: '10px', maxHeight: '700px' }}>
+      <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ minHeight: '250px' }} />
       <Card.Body>
         <Card.Title>{tourObj.name} </Card.Title>
-        <p>{tourObj.description}</p>
+        <p style={{ minHeight: '250px' }}>{tourObj.description}</p>
         <ListGroup>
-          {/* <ListGroupItem>
+          <ListGroupItem>
             {tourObj.state?.name}
           </ListGroupItem>
           <ListGroupItem>
             {tourObj.address}
-          </ListGroupItem> */}
+          </ListGroupItem>
           <ListGroupItem>
             {tourObj.price}
           </ListGroupItem>
           <ListGroupItem>
-            categories
+
+            <div className="tour-categories">
+              {tourObj.categories
+          && tourObj.categories.map((category) => <p><em>{category.name}</em></p>)}
+            </div>
           </ListGroupItem>
         </ListGroup>
-        <div className="tour-categories">
-          {tourObj.categories
-          && tourObj.categories.map((category) => <p><em>{category.name}</em></p>)}
-        </div><hr />
         { user.id === tourObj.user.id ? (
           <>
             <Link href={`/tour/edit/${tourObj.id}`} passHref>

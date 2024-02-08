@@ -18,7 +18,7 @@ const SearchBar = () => {
   return (
     <div>
       <input
-        placeholder="Search"
+        placeholder="Search Tours"
         value={input}
         onChange={(e) => handleChange(e.target.value)}
       />

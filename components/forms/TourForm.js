@@ -157,7 +157,7 @@ function TourForm({ obj }) {
           <Button variant="btn-small btn-secondary" type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
 
           {/* SUBMIT BUTTON  */}
-          <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
+          {/* <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button> */}
         </Form>
       </DropDownSelectedContext.Provider>
     </>

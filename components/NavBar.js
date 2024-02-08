@@ -29,9 +29,10 @@ export default function NavBar() {
             <Link passHref href="/userTours">
               <Nav.Link>My Tours</Nav.Link>
             </Link>
-            <Link passHref href="/profile">
+            {/* <Link passHref href="/profile">
               <Nav.Link>My Page</Nav.Link>
-            </Link>
+            </Link> */}
+
             <Button variant="light" onClick={signOut}>
               Sign Out
             </Button>

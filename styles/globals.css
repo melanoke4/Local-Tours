@@ -29,6 +29,13 @@ body {
   margin: .5rem;
 }
 
+#bio-card-img {
+  background: transparent;
+}
+
+#intro-card {
+  background-image: url("https://sportsposterwarehouse.com/cdn/shop/products/usatraveleu-1_1024x1024.jpg?v=1496257499");}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
