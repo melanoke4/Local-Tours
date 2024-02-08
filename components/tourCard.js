@@ -22,23 +22,18 @@ function TourCard({ tourObj, onUpdate }) {
         <Card.Title>{tourObj.name} </Card.Title>
         <p>{tourObj.description}</p>
         <ListGroup>
-          {/* <ListGroupItem>
+          <ListGroupItem>
             {tourObj.state?.name}
           </ListGroupItem>
           <ListGroupItem>
-            {tourObj.address}
-          </ListGroupItem> */}
-          <ListGroupItem>
             {tourObj.price}
           </ListGroupItem>
-          <ListGroupItem>
-            categories
+          <ListGroupItem> categories: {tourObj?.categories?.map((category) => (
+            <p>{category.name}
+            </p>
+          ))}
           </ListGroupItem>
         </ListGroup>
-        <div className="tour-categories">
-          {tourObj.categories
-          && tourObj.categories.map((category) => <p><em>{category.name}</em></p>)}
-        </div><hr />
         { user.id === tourObj.user.id ? (
           <>
             <Link href={`/tour/edit/${tourObj.id}`} passHref>
@@ -64,7 +59,7 @@ TourCard.propTypes = {
     location: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
-    categories: PropTypes.string,
+    state: PropTypes.string,
     id: PropTypes.number,
     categories: PropTypes.arrayOf(
       PropTypes.shape({
