@@ -28,7 +28,7 @@ const SearchBar = ({ setShowingTours, tours }) => {
   return (
     <div>
       <input
-        placeholder="Search"
+        placeholder="Search Tours"
         onChange={handleChange}
       />
     </div>

@@ -71,7 +71,7 @@ function TourForm({ obj }) {
         <Form onSubmit={handleSubmit}>
           <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Add a'} Tour</h2>
 
-          <FloatingLabel controlId="floatingInput1" label="Your Name" className="mb-3">
+          <FloatingLabel controlId="floatingInput1" label="Tour Name" className="mb-3">
             <Form.Control
               type="text"
               placeholder="Name"
@@ -137,7 +137,6 @@ function TourForm({ obj }) {
             />
           </FloatingLabel>
 
-          {/* IMAGE INPUT  */}
           <FloatingLabel controlId="floatingInput2" label="Tour Images" className="mb-3">
             <Form.Control
               type="url"
@@ -149,7 +148,7 @@ function TourForm({ obj }) {
             />
           </FloatingLabel>
 
-          <FloatingLabel>
+          <FloatingLabel id="categories-dropdown">
             <DropDown tour={obj} existingCategories={existingCategories} />
           </FloatingLabel>
 

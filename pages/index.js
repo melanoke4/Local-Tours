@@ -22,24 +22,25 @@ function Home() {
   }, []);
 
   return (
-    <div className="text-center my-4">
-      <Card>
-        <Card.Img variant="top" src="" alt="homepageimg" style={{ maxHeight: '350px' }} />
-        <Card.Body>
-          <p>page intro</p>
-          <Link href="/tour/new" passHref>
-            <Button variant="btn-small btn-secondary">Add A Tour</Button>
-          </Link>
-        </Card.Body>
-        <SearchBar setShowingTours={setShowingTours} showingTours={showingTours} tours={tours} />
-      </Card>
-      <div className="d-flex flex-wrap">
+    <div className="my-4">
+      <center>
+        <Card id="intro-card">
+          <Card.Body>
+            <p>Planning your next trip has never been easier with Local Tours! Our user-friendly platform streamlines the process of adding tours to your itinerary, providing you with suggested tours or the option to customize your own. Say goodbye to the stress of trip planning and say hello to Local Tours - the perfect solution for hassle-free travel!</p>
+            <Link href="/tour/new" passHref>
+              <Button variant="btn-small btn-secondary">Add A Tour</Button>
+            </Link>
+          </Card.Body>
+          <SearchBar setShowingTours={setShowingTours} showingTours={showingTours} tours={tours} />
+        </Card>
+      </center>
+      <div className="d-flex flex-sm-wrap" id="tour-card-index">
         {showingTours.map((tour) => (
           <TourCard key={tour.id} tourObj={tour} onUpdate={getAllTours} />
         ))}
       </div>
-
     </div>
+
   );
 }
 

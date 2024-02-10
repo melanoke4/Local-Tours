@@ -37,9 +37,8 @@ export default function CommentForm({ tourObj }) {
           onChange={handleChange}
           required
         />
+        <Button variant="btn-small btn-secondary" type="submit"> Comment </Button>
       </FloatingLabel>
-
-      <Button variant="btn-small btn-secondary" type="submit"> Comment </Button>
 
     </Form>
   );

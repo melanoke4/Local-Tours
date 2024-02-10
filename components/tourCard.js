@@ -16,19 +16,25 @@ function TourCard({ tourObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px', maxHeight: '600px' }}>
-      <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ height: '400px' }} />
-      <Card.Body>
+    <Card id="tour-card-style">
+      <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ minHeight: '250px' }} />
+      <Card.Body id="tour-card-description">
         <Card.Title>{tourObj.name} </Card.Title>
-        <p>{tourObj.description}</p>
         <ListGroup>
           <ListGroupItem>
-            {tourObj.state?.name}
+            <p> Description: {tourObj.description}</p>
           </ListGroupItem>
           <ListGroupItem>
-            {tourObj.price}
+            State: {tourObj.state?.name}
           </ListGroupItem>
-          <ListGroupItem> categories: {tourObj?.categories?.map((category) => (
+          <ListGroupItem>
+            Address: {tourObj.address}
+
+          </ListGroupItem>
+          <ListGroupItem>
+            Price: ${tourObj.price}
+          </ListGroupItem>
+          <ListGroupItem> Categories: {tourObj?.categories?.map((category) => (
             <p>{category.name}
             </p>
           ))}
@@ -46,9 +52,14 @@ function TourCard({ tourObj, onUpdate }) {
               DELETE
             </Button>
           </>
-        ) : ''}
+        ) : (
+          <Link href={`/tour/${tourObj.id}`} passHref>
+            <Button variant="light" className="m-2">VIEW</Button>
+          </Link>
+        )}
       </Card.Body>
     </Card>
+
   );
 }
 
@@ -56,7 +67,7 @@ TourCard.propTypes = {
   tourObj: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
-    location: PropTypes.string,
+    address: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
     state: PropTypes.string,
