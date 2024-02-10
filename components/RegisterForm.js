@@ -18,9 +18,9 @@ function RegisterForm({ user, setUser }) {
     e.preventDefault();
     if (user.id) {
       updateUser({ ...formData, id: user.id }).then(setUser)
-        .then(router.push('/profile'));
+        .then(router.push('/userTours'));
     }
-    registerUser(formData).then(router.push('/profile')).then(router.reload());
+    registerUser(formData).then(router.push('/userTours'));
   };
 
   return (
@@ -29,7 +29,6 @@ function RegisterForm({ user, setUser }) {
         <Form.Label><h1>Tour Guide</h1></Form.Label>
         <Form.Control as="textarea" name="username" id="username" required placeholder="Enter your User Name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
         <Form.Control as="textarea" name="bio" id="userBio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        {/* <Form.Text className="text-muted">Let other travelers know a little bit about you...</Form.Text> */}
       </Form.Group>
       <Button variant="secondary" type="submit" className="btn btn-small">
         Submit

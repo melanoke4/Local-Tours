@@ -8,7 +8,6 @@ import { useAuth } from '../../utils/context/authContext';
 import { createTour, updateTour } from '../../api/tourData';
 import DropDown from '../MultiSelectDD';
 import getState from '../../api/stateData';
-import { addCategoryToTour } from '../../api/tourCategoryData';
 import DropDownSelectedContext from '../../utils/context/dropdownSelectedContext';
 
 const initialState = {
@@ -72,7 +71,7 @@ function TourForm({ obj }) {
         <Form onSubmit={handleSubmit}>
           <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Add a'} Tour</h2>
 
-          <FloatingLabel controlId="floatingInput1" label="Your Name" className="mb-3">
+          <FloatingLabel controlId="floatingInput1" label="Tour Name" className="mb-3">
             <Form.Control
               type="text"
               placeholder="Name"
@@ -138,7 +137,6 @@ function TourForm({ obj }) {
             />
           </FloatingLabel>
 
-          {/* IMAGE INPUT  */}
           <FloatingLabel controlId="floatingInput2" label="Tour Images" className="mb-3">
             <Form.Control
               type="url"
@@ -150,14 +148,12 @@ function TourForm({ obj }) {
             />
           </FloatingLabel>
 
-          <FloatingLabel>
+          <FloatingLabel id="categories-dropdown">
             <DropDown tour={obj} existingCategories={existingCategories} />
           </FloatingLabel>
 
           <Button variant="btn-small btn-secondary" type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button>
 
-          {/* SUBMIT BUTTON  */}
-          {/* <Button type="submit">{obj.id ? 'Update' : 'Create'} Tour</Button> */}
         </Form>
       </DropDownSelectedContext.Provider>
     </>

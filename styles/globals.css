@@ -4,6 +4,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -18,7 +19,7 @@ a {
 }
 
 body {
-  background-color: #283A2C;
+  background-color: #605d50;
 }
 
 .tour-categories {
@@ -33,8 +34,59 @@ body {
   background: transparent;
 }
 
+#tour-card-description {
+  position: relative;
+    overflow-y:  scroll;
+}
+#categories-dropdown {
+  color: #c69c6a;
+}
+
+#bio-card-img {
+  width: 30rem;
+   margin: 10px;
+   color: #ffffff;
+   background-color: #cbbaa6;
+}
+
+input[type=text] {
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 100%;
+}
+
+#tour-card-style {
+  width: 20rem;
+  margin: 10px;
+  max-height: 750px;
+  background-color: #cbbaa6;
+  color: #605d50;
+}
+
+#tour-card-index {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+#user-tours-cards {
+  display: flex;
+  justify-content: space-around;
+}
+
 #intro-card {
-  background-image: url("https://sportsposterwarehouse.com/cdn/shop/products/usatraveleu-1_1024x1024.jpg?v=1496257499");}
+  /* max-width: 1040px; */
+  color: #daddc5;
+  background-image: url("https://cdn.pixabay.com/photo/2016/01/09/18/28/notepad-1130743_1280.jpg");
+   background-color: #cbbaa6;
+};
+
+.view-tour {
+  display: flex;
+  flex-direction: column;
+}
 
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');

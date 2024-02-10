@@ -1,29 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const SearchBar = () => {
-  const [input, setInput] = useState([]);
+const SearchBar = ({ setShowingTours, tours }) => {
+  const handleChange = (e) => {
+    const filteredTours = [];
 
-  const fetchData = (value) => {
-    fetch('url').then((response) => response.json()).then((json) => {
-      const results = json.filter((user) => value && user && user.name && user.name.toLowerCase().includes(value));
-      console.warn(results);
+    tours.forEach((tour) => {
+      if (tour.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+        filteredTours.push(tour);
+      }
+      if (tour.state.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+        if (!filteredTours.find((element) => element.id === tour.id)) {
+          filteredTours.push(tour);
+        }
+      }
+      tour.categories.forEach((category) => {
+        if (category.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+          if (!filteredTours.find((element) => element.id === tour.id)) {
+            filteredTours.push(tour);
+          }
+        }
+      });
     });
-  };
-
-  const handleChange = (value) => {
-    setInput(value);
-    fetchData(value);
+    setShowingTours(filteredTours);
   };
 
   return (
     <div>
       <input
         placeholder="Search Tours"
-        value={input}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={handleChange}
       />
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  tours: PropTypes.arrayOf(
+    PropTypes.shape({
+      image: PropTypes.string,
+      name: PropTypes.string,
+      location: PropTypes.string,
+      price: PropTypes.string,
+      description: PropTypes.string,
+      state: PropTypes.string,
+      id: PropTypes.number,
+      categories: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          name: PropTypes.string,
+        }),
+      ),
+    }),
+  ).isRequired,
+  setShowingTours: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

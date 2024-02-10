@@ -16,27 +16,28 @@ function TourCard({ tourObj, onUpdate }) {
   };
 
   return (
-    <Card style={{ width: '18rem', margin: '10px', maxHeight: '700px' }}>
+    <Card id="tour-card-style">
       <Card.Img variant="top" src={tourObj.image} alt={tourObj.name} style={{ minHeight: '250px' }} />
-      <Card.Body>
+      <Card.Body id="tour-card-description">
         <Card.Title>{tourObj.name} </Card.Title>
-        <p style={{ minHeight: '250px' }}>{tourObj.description}</p>
         <ListGroup>
           <ListGroupItem>
-            {tourObj.state?.name}
+            <p> Description: {tourObj.description}</p>
           </ListGroupItem>
           <ListGroupItem>
-            {tourObj.address}
+            State: {tourObj.state?.name}
           </ListGroupItem>
           <ListGroupItem>
-            {tourObj.price}
-          </ListGroupItem>
-          <ListGroupItem>
+            Address: {tourObj.address}
 
-            <div className="tour-categories">
-              {tourObj.categories
-          && tourObj.categories.map((category) => <p><em>{category.name}</em></p>)}
-            </div>
+          </ListGroupItem>
+          <ListGroupItem>
+            Price: ${tourObj.price}
+          </ListGroupItem>
+          <ListGroupItem> Categories: {tourObj?.categories?.map((category) => (
+            <p>{category.name}
+            </p>
+          ))}
           </ListGroupItem>
         </ListGroup>
         { user.id === tourObj.user.id ? (
@@ -51,9 +52,14 @@ function TourCard({ tourObj, onUpdate }) {
               DELETE
             </Button>
           </>
-        ) : ''}
+        ) : (
+          <Link href={`/tour/${tourObj.id}`} passHref>
+            <Button variant="light" className="m-2">VIEW</Button>
+          </Link>
+        )}
       </Card.Body>
     </Card>
+
   );
 }
 
@@ -61,10 +67,10 @@ TourCard.propTypes = {
   tourObj: PropTypes.shape({
     image: PropTypes.string,
     name: PropTypes.string,
-    location: PropTypes.string,
+    address: PropTypes.string,
     price: PropTypes.string,
     description: PropTypes.string,
-    categories: PropTypes.string,
+    state: PropTypes.string,
     id: PropTypes.number,
     categories: PropTypes.arrayOf(
       PropTypes.shape({

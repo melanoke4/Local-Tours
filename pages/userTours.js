@@ -1,6 +1,4 @@
-import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
 import { getTourById } from '../api/tourData';
 import TourCard from '../components/tourCard';
@@ -22,7 +20,7 @@ function UserTours() {
   return (
     <div className="text-center my-4">
       <UserBio />
-      <div className="d-flex flex-wrap">
+      <div id="user-tours-cards" className="d-flex flex-wrap">
         {tours.map((tour) => (
           <TourCard key={tour.id} tourObj={tour} onUpdate={getAllTours} />
         ))}
